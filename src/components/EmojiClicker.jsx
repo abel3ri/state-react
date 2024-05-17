@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
-function randomEmoji(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+const emojis = ["😀", "😁", "😂", "😎", "😅", "😋", "🤩", "😴", "😑"];
+
+function randomEmoji() {
+  return emojis[Math.floor(Math.random() * emojis.length)];
 }
 
-export default function EmojiClicker({ emos }) {
-  const [emojis, setEmojis] = useState([{}]);
+export default function EmojiClicker() {
+  const [emojis, setEmojis] = useState([{ id: uuid(), emoji: randomEmoji() }]);
+
   const addEmoji = () => {
     setEmojis((emojis) => {
-      return [...emojis, randomEmoji(emos)];
+      return [...emojis, { id: uuid(), emoji: randomEmoji() }];
     });
   };
 
   const deleteEmoji = (id) => {
-    console.log(id);
     setEmojis((emojis) => {
       return emojis.filter((emoji) => {
         return emoji.id != id;
@@ -27,7 +29,7 @@ export default function EmojiClicker({ emos }) {
       {emojis.map((emoji) => {
         return (
           <span
-            key={uuid()}
+            key={emoji.id}
             style={{ fontSize: "2rem" }}
             onClick={() => deleteEmoji(emoji.id)}
           >
