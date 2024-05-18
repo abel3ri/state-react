@@ -1,21 +1,57 @@
 import { useState } from "react";
-// import lodash from "lodash";
+import { v4 as uuid } from "uuid";
 
-export default function ScoreKeeper() {
-  const [scores, setScores] = useState({ p1Score: 0, p2Score: 0 });
-  const increaseP1Score = () => {
-    setScores({ ...scores, p1Score: scores.p1Score + 1 });
+const createPlayers = (num) => {
+  return Array.from({ length: num }, (_, i) => {
+    return {
+      id: uuid(),
+      player: `Player ${i + 1}`,
+      score: 0,
+      isWinner: false,
+    };
+  });
+};
+
+export default function ScoreKeeper({ numPlayers, target }) {
+  const [players, setPlayers] = useState(createPlayers(numPlayers));
+
+  const addScore = (id) => {
+    setPlayers((players) => {
+      return players.map((player) => {
+        if (player.id == id) {
+          if (player.score == target) {
+            return { ...player, isWinner: true };
+          }
+          return { ...player, score: player.score + 1 };
+        }
+        return player;
+      });
+    });
   };
-  const increaseP2Score = () => {
-    setScores({ ...scores, p2Score: scores.p2Score + 1 });
+
+  const resetAllScores = () => {
+    setPlayers((players) => {
+      return players.map((player) => {
+        return { ...player, score: 0, isWinner: false };
+      });
+    });
   };
+
   return (
     <div className="ScoreKeeper">
-      <p>Player one score: {scores.p1Score}</p>
-      <p>Player two score: {scores.p2Score}</p>
+      {players.map((player) => {
+        return (
+          <div key={player.id}>
+            <h2>
+              {player.player} score: {player.score}
+            </h2>
+            <h3>{player.isWinner ? "You are a winner!" : null}</h3>
+            <button onClick={() => addScore(player.id)}>+1</button>
+          </div>
+        );
+      })}
       <hr />
-      <button onClick={increaseP1Score}>+1 Player one</button>
-      <button onClick={increaseP2Score}>+1 Player two</button>
+      <button onClick={resetAllScores}>Reset</button>
     </div>
   );
 }

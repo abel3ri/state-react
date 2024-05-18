@@ -9,8 +9,8 @@ function App() {
     <>
       {/* <Counter /> */}
       {/* <Pricing /> */}
-      {/* <ScoreKeeper /> */}
-      <EmojiClicker />
+      <ScoreKeeper numPlayers={4} target={3} />
+      {/* <EmojiClicker /> */}
     </>
   );
 }

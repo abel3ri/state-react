@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
-const emojis = ["😀", "😁", "😂", "😎", "😅", "😋", "🤩", "😴", "😑"];
+const emos = ["😀", "😁", "😂", "😎", "😅", "😋", "🤩", "😴", "😑"];
 
 function randomEmoji() {
-  return emojis[Math.floor(Math.random() * emojis.length)];
+  return emos[Math.floor(Math.random() * emos.length)];
 }
 
 export default function EmojiClicker() {
@@ -24,6 +24,14 @@ export default function EmojiClicker() {
     });
   };
 
+  const makeAllHearts = () => {
+    setEmojis((emojis) => {
+      return emojis.map((e) => {
+        return { ...e, emoji: "♥" };
+      });
+    });
+  };
+
   return (
     <div className="EmojiClicker">
       {emojis.map((emoji) => {
@@ -38,6 +46,8 @@ export default function EmojiClicker() {
         );
       })}
       <button onClick={addEmoji}> Add Emoji</button>
+      <h1></h1>
+      <button onClick={makeAllHearts}>Make them all hearts</button>
     </div>
   );
 }
