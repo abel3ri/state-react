@@ -1,0 +1,4 @@
+.BoxGrid {
+  display: grid;
+  gap: 10px 10px;
+}

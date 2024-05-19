@@ -4,6 +4,7 @@ import EmojiClicker from "./components/EmojiClicker";
 import Pricing from "./components/Pricing";
 import ScoreKeeper from "./components/ScoreKeeper";
 import TopLevel from "./components/TopLevel";
+import BoxGrid from "./components/BoxGrid";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       {/* <Counter /> */}
       {/* <Pricing /> */}
       {/* <ScoreKeeper numPlayers={4} target={3} /> */}
-      <TopLevel />
+      {/* <TopLevel /> */}
+      <BoxGrid grid={4} numBox={16} />
     </>
   );
 }
